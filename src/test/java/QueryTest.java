@@ -10,7 +10,8 @@ import java.util.List;
 class QueryTest {
 
     private final NotionClient client = new NotionClientInitializer().getClient();
-    private static final String testDatabaseId = "586ae99a-8a1a-42aa-a758-f1eb307adf15";
+    private static final String emptyBasicDatabase = "586ae99a-8a1a-42aa-a758-f1eb307adf15";
+    private static final String emptyAdvanceDatabase = "e336b80894574d8ea22e964f84def390";
 
     @Test
     public void queryTheDatabasesList() {
@@ -21,7 +22,7 @@ class QueryTest {
 
     @Test
     public void queryASpecificDatabaseAndRetrieveTheObjectTypePage() {
-        List<Page> pageList = new Query().queryDatabase(client, testDatabaseId);
+        List<Page> pageList = new Query().queryDatabase(client, emptyBasicDatabase);
         String objectType = pageList.get(0).getObjectType().getValue();
 
         Assertions.assertEquals("page", objectType);
@@ -29,7 +30,7 @@ class QueryTest {
 
     @Test
     public void givingAPageFieldNameGetThePageProperty() {
-        Page page = new Query().queryDatabase(client, testDatabaseId).get(0);
+        Page page = new Query().queryDatabase(client, emptyBasicDatabase).get(0);
         PageProperty pageProperty = new Query().queryPageProperty(
                 page,
                 "Phone Field"
@@ -40,7 +41,7 @@ class QueryTest {
 
     @Test
     public void givingANotExistingPageFieldNameGetException() {
-        Page page = new Query().queryDatabase(client, testDatabaseId).get(0);
+        Page page = new Query().queryDatabase(client, emptyBasicDatabase).get(0);
         String field = "Not existing field";
         NullPointerException exception = Assertions.assertThrows(
                 NullPointerException.class, () ->
@@ -54,5 +55,18 @@ class QueryTest {
         String actualMessage = exception.getMessage();
 
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void givingAnEmptyRollupFieldGetNull() {
+        Page page = new Query().queryDatabase(client, emptyAdvanceDatabase).get(0);
+        String field = "Rollup Phone Field";
+        List<PageProperty> rollupPage = new Query()
+                .queryPagePropertyRollup(
+                        page,
+                        field
+                );
+
+        Assertions.assertTrue(rollupPage.isEmpty());
     }
 }

@@ -5,6 +5,7 @@ import notion.api.v1.model.search.SearchResult;
 import notion.api.v1.request.databases.QueryDatabaseRequest;
 import notion.api.v1.request.search.SearchRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class Query {
@@ -29,5 +30,14 @@ class Query {
             throw new NullPointerException("Field \"" + field + "\" does not exist");
         }
         return page.getProperties().get(field);
+    }
+
+    List<PageProperty> queryPagePropertyRollup(Page page, String field) {
+        try {
+            queryPageProperty(page, field).getRollup().getArray();
+        } catch (NullPointerException e) {
+            return new ArrayList<>();
+        }
+        return queryPageProperty(page, field).getRollup().getArray();
     }
 }
