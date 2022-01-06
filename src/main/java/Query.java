@@ -13,16 +13,17 @@ class Query {
     List<SearchResult> listDatabases(NotionClient client) {
         return client.search(
                 new SearchRequest("",
-                        new SearchRequest.SearchFilter("database", "object")
-                )
-        ).getResults();
+                        new SearchRequest.SearchFilter(
+                                "database",
+                                "object")))
+                .getResults();
     }
 
-    List<Page> queryDatabase(NotionClient client, String tableId) {
+    List<Page> queryDatabase(NotionClient client, String databaseId) {
         return client.queryDatabase(
                 new QueryDatabaseRequest(
-                        tableId)
-        ).getResults();
+                        databaseId))
+                .getResults();
     }
 
     PageProperty queryPageProperty(Page page, String field) {
@@ -40,4 +41,5 @@ class Query {
         }
         return queryPageProperty(page, field).getRollup().getArray();
     }
+
 }
