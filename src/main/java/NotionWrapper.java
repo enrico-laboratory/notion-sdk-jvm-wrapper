@@ -4,18 +4,21 @@ import notion.api.v1.model.pages.PageProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotionWrapper {
+class NotionWrapper {
 
     private final PageProperty queryPageProperty;
     private final List<PageProperty> queryPagePropertyRollup;
 
-    public NotionWrapper(Page page, String field) {
+    NotionWrapper(Page page, String field) {
         Query query = new Query();
         this.queryPageProperty = query.queryPageProperty(page, field);
         this.queryPagePropertyRollup = query.queryPagePropertyRollup(page, field);
     }
+    // -------------------
+    // Properties --------
+    // -------------------
 
-    public String getTitle() {
+    String getTitle() {
         if (queryPageProperty == null) {
             return "";
         } else if (queryPageProperty.getTitle().isEmpty()) {
@@ -25,7 +28,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getRichText() {
+    String getRichText() {
         if (queryPageProperty == null) {
             return "";
         } else if (queryPageProperty.getRichText().isEmpty()) {
@@ -35,7 +38,7 @@ public class NotionWrapper {
         }
     }
 
-    public Number getNumber() {
+    Number getNumber() {
         if (queryPageProperty == null) {
             return null;
         } else {
@@ -43,19 +46,17 @@ public class NotionWrapper {
         }
     }
 
-    public String getSelect() {
+    String getSelect() {
         if (queryPageProperty == null) {
             return "";
         } else if (queryPageProperty.getSelect() == null) {
             return "";
-//        } else if (getField(page, field).getSelect().getName() == null) {
-//            return "";
         } else {
             return queryPageProperty.getSelect().getName();
         }
     }
 
-    public List<String> getMultiSelect() {
+    List<String> getMultiSelect() {
         List<String> multiSelectNames = new ArrayList<>();
         if (queryPageProperty == null) {
             return new ArrayList<>();
@@ -68,7 +69,7 @@ public class NotionWrapper {
         return multiSelectNames;
     }
 
-    public List<String> getDate() {
+    List<String> getDate() {
         if (queryPageProperty == null) {
             return getDateList("", "");
         } else if (queryPageProperty.getDate() == null) {
@@ -87,7 +88,7 @@ public class NotionWrapper {
         return date;
     }
 
-    public List<String> getPerson() {
+    List<String> getPerson() {
         if (queryPageProperty == null) {
             return new ArrayList<>();
         } else if (queryPageProperty.getPeople() == null) {
@@ -101,13 +102,13 @@ public class NotionWrapper {
         }
     }
 
-//    getFileAndMedia()
+    //    getFilesAndMedia() not implemented because always return empty array
 
-    public Boolean getCheckbox() {
+    Boolean getCheckbox() {
         return queryPageProperty.getCheckbox();
     }
 
-    public String getUrl() {
+    String getUrl() {
         if (queryPageProperty == null) {
             return "";
         } else if (queryPageProperty.getUrl() == null) {
@@ -117,7 +118,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getEmail() {
+    String getEmail() {
         if (queryPageProperty == null) {
             return "";
         } else if (queryPageProperty.getEmail() == null) {
@@ -127,7 +128,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getPhoneNumber() {
+    String getPhoneNumber() {
         if (queryPageProperty == null) {
             return "";
         } else if (queryPageProperty.getPhoneNumber() == null) {
@@ -137,7 +138,7 @@ public class NotionWrapper {
         }
     }
 
-    public List<String> getRelation() {
+    List<String> getRelation() {
         if (queryPageProperty == null) {
             return new ArrayList<>();
         } else if (queryPageProperty.getRelation() == null) {
@@ -150,7 +151,11 @@ public class NotionWrapper {
         }
     }
 
-    public String getTitleRollup() {
+    // -------------------
+    // Property Rollup ---
+    // -------------------
+
+    String getTitleRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return "";
         } else if (queryPagePropertyRollup.get(0).getTitle().isEmpty()) {
@@ -160,7 +165,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getPhoneNumberRollup() {
+    String getPhoneNumberRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return "";
         } else if (queryPagePropertyRollup.get(0).getPhoneNumber() == null) {
@@ -170,7 +175,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getSelectRollup() {
+    String getSelectRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return "";
         } else if (queryPagePropertyRollup.get(0).getSelect() == null) {
@@ -180,7 +185,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getEmailRollup() {
+    String getEmailRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return "";
         } else if (queryPagePropertyRollup.get(0).getEmail() == null) {
@@ -190,9 +195,9 @@ public class NotionWrapper {
         }
     }
 
-    //    getFilesAndMediaRollup()
+    //    getFilesAndMediaRollup() not implemented because always return empty array
 
-    public List<String> getMultiSelectRollup() {
+    List<String> getMultiSelectRollup() {
         List<String> multiSelectNames = new ArrayList<>();
         if (queryPagePropertyRollup.isEmpty()) {
             return new ArrayList<>();
@@ -205,7 +210,7 @@ public class NotionWrapper {
         return multiSelectNames;
     }
 
-    public String getUrlRollup() {
+    String getUrlRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return "";
         } else if (queryPagePropertyRollup.get(0).getUrl() == null) {
@@ -215,7 +220,7 @@ public class NotionWrapper {
         }
     }
 
-    public List<String> getPersonRollup() {
+    List<String> getPersonRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return new ArrayList<>();
         } else if (queryPagePropertyRollup.get(0).getPeople() == null) {
@@ -229,7 +234,7 @@ public class NotionWrapper {
         }
     }
 
-    public Boolean getCheckboxRollup() {
+    Boolean getCheckboxRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return false;
         } else if (queryPagePropertyRollup.get(0).getCheckbox() == null) {
@@ -239,7 +244,7 @@ public class NotionWrapper {
         }
     }
 
-    public List<String> getDateRollup() {
+    List<String> getDateRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return getDateList("", "");
         } else if (queryPagePropertyRollup.get(0).getDate() == null) {
@@ -251,7 +256,7 @@ public class NotionWrapper {
         }
     }
 
-    public Number getNumberRollup() {
+    Number getNumberRollup() {
         if (queryPagePropertyRollup.isEmpty()) {
             return null;
         } else if (queryPagePropertyRollup.get(0).getNumber() == null) {
@@ -261,7 +266,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getCreatedBy() {
+    String getCreatedBy() {
         if (queryPageProperty == null) {
             return "";
         } else {
@@ -269,7 +274,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getLastEditedBy() {
+    String getLastEditedBy() {
         if (queryPageProperty == null) {
             return "";
         } else {
@@ -277,7 +282,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getCreatedTime() {
+    String getCreatedTime() {
         if (queryPageProperty == null) {
             return "";
         } else {
@@ -285,7 +290,7 @@ public class NotionWrapper {
         }
     }
 
-    public String getLastEditedTime() {
+    String getLastEditedTime() {
         if (queryPageProperty == null) {
             return "";
         } else {
