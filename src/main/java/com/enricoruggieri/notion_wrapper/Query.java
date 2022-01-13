@@ -1,3 +1,5 @@
+package com.enricoruggieri.notion_wrapper;
+
 import notion.api.v1.NotionClient;
 import notion.api.v1.model.pages.Page;
 import notion.api.v1.model.pages.PageProperty;

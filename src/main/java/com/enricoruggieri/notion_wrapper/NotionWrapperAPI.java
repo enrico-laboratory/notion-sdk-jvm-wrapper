@@ -1,3 +1,5 @@
+package com.enricoruggieri.notion_wrapper;
+
 import notion.api.v1.NotionClient;
 import notion.api.v1.model.pages.Page;
 
@@ -5,9 +7,9 @@ import java.util.List;
 
 public class NotionWrapperAPI {
 
-    public static List<Page> query_database(String database){
+    public static List<Page> query_database(String databaseId){
         NotionClient client = new NotionClientInitializer().getClient();
-        return new Query().queryDatabase(client, database);
+        return new Query().queryDatabase(client, databaseId);
     }
 
     public static String getTitle(Page page, String field) {

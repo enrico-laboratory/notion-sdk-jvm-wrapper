@@ -1,9 +1,11 @@
+package com.enricoruggieri.notion_wrapper;
+
 import notion.api.v1.NotionClient;
 import notion.api.v1.exception.NotionAPIError;
 
 class NotionClientInitializer {
 
-    private NotionClient client;
+    private final NotionClient client;
     private static final String NOTION_TOKEN = System.getenv("NOTION_TOKEN");
 
     public NotionClientInitializer() {

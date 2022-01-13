@@ -6,4 +6,6 @@
 gradlew
 gradlew.bat
 json
-/src/test/java/Config.java
+/src/test/java/com/enricoruggieri/notion_wrapper/Config.java
+/src/test/java/com/enricoruggieri/notion_wrapper/QueryTest.java
+/src/test/java/com/enricoruggieri/notion_wrapper/NotionWrapperQueryTest.java
